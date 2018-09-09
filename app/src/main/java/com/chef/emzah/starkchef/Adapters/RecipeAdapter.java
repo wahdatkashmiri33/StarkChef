@@ -2,6 +2,7 @@ package com.chef.emzah.starkchef.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chef.emzah.starkchef.ModalClasses.Ingredient;
 import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.R;
 import com.chef.emzah.starkchef.UI.RecipeSteps;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,7 +45,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     @Override
     public void onBindViewHolder(@NonNull final RecipeViewHolder holder, int position) {
-         Recipe recipe= recipies.get(position);
+         final Recipe recipe= recipies.get(position);
+
          holder.recipename.setText(recipe.getName());
          holder.servings.setText(String.format(Locale.US,"%d",recipe.getServings()));
          holder.steps.setText(String.format(Locale.US,"%d",recipe.getSteps().size()));
@@ -52,6 +56,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
              Recipe recipe1=new Recipe();
                  Intent intent=new Intent(context, RecipeSteps.class);
                  intent.putExtra("recipeData",recipies.get(holder.getAdapterPosition()));
+                 intent.putParcelableArrayListExtra("ingredientsList", new ArrayList<Parcelable>(recipies.get(holder.getAdapterPosition()).getIngredients()));
+                intent.putParcelableArrayListExtra("stepsList",new ArrayList<Parcelable>(recipies.get(holder.getAdapterPosition()).getSteps()));
                  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                  context.startActivity(intent);
              }

@@ -1,6 +1,7 @@
 package com.chef.emzah.starkchef.UI.Fragments;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,27 +19,34 @@ import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.R;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class IngredietFragment extends Fragment {
     @BindView(R.id.ingredientsrecyclerview) RecyclerView recyclerView;
-
+List<Ingredient> ingredientList;
     RecipeIngredientAdapter adapter;
-    public List<Ingredient> ingredientList;
+
     public IngredietFragment() {
     }
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.ingredients_fragment,container,false);
 
-
+     ingredientList=getActivity().getIntent().getParcelableArrayListExtra("ingredientsList");
         ButterKnife.bind(this,view);
         final LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
+
+
+
 
         recyclerView.setHasFixedSize(true);
         adapter=new RecipeIngredientAdapter(ingredientList,getContext());
