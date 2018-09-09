@@ -1,7 +1,9 @@
 package com.chef.emzah.starkchef.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.R;
+import com.chef.emzah.starkchef.UI.RecipeSteps;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -38,12 +41,21 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecipeViewHolder holder, int position) {
          Recipe recipe= recipies.get(position);
          holder.recipename.setText(recipe.getName());
          holder.servings.setText(String.format(Locale.US,"%d",recipe.getServings()));
          holder.steps.setText(String.format(Locale.US,"%d",recipe.getSteps().size()));
-
+         holder.cardView.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+             Recipe recipe1=new Recipe();
+                 Intent intent=new Intent(context, RecipeSteps.class);
+                 intent.putExtra("recipeData",recipies.get(holder.getAdapterPosition()));
+                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                 context.startActivity(intent);
+             }
+         });
 
     }
 
@@ -58,9 +70,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public class RecipeViewHolder extends RecyclerView.ViewHolder{
 
 
+        @BindView(R.id.cardlayout) CardView cardView;
         @BindView(R.id.servings) TextView servings;
         @BindView(R.id.steps) TextView steps;
-        @BindView(R.id.recipe_name)  TextView recipename;
+        @BindView(R.id.recipe_name) TextView recipename;
         public RecipeViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
