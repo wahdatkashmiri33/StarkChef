@@ -57,11 +57,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                  Intent intent=new Intent(context, RecipeSteps.class);
                  intent.putExtra("recipeData",recipies.get(holder.getAdapterPosition()));
                  intent.putParcelableArrayListExtra("ingredientsList", new ArrayList<Parcelable>(recipies.get(holder.getAdapterPosition()).getIngredients()));
-                intent.putParcelableArrayListExtra("stepsList",new ArrayList<Parcelable>(recipies.get(holder.getAdapterPosition()).getSteps()));
+                 intent.putParcelableArrayListExtra("stepsList",new ArrayList<Parcelable>(recipies.get(holder.getAdapterPosition()).getSteps()));
                  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                  context.startActivity(intent);
              }
          });
+
+
 
     }
 

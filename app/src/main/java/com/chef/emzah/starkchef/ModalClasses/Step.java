@@ -25,7 +25,7 @@ public class Step implements Parcelable{
     @Expose
     private String thumbnailURL;
 
-    protected Step(Parcel in) {
+    public Step(Parcel in) {
         if (in.readByte() == 0) {
             id = null;
         } else {
@@ -35,6 +35,10 @@ public class Step implements Parcelable{
         description = in.readString();
         videoURL = in.readString();
         thumbnailURL = in.readString();
+    }
+
+    public Step() {
+
     }
 
     @Override

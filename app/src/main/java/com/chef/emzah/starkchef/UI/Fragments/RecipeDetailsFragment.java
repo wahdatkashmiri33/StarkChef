@@ -46,6 +46,15 @@ public class RecipeDetailsFragment extends Fragment {
                 Toast.makeText(getContext(), "this is detail fragment", Toast.LENGTH_SHORT).show();
             }
         });
+        cardViewSteps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             StepsFragment stepsFragment=new StepsFragment();
+             FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+             fragmentManager.beginTransaction().replace(R.id.container,stepsFragment)
+                     .addToBackStack(null).commit();
+            }
+        });
 
         return rootView;
     }
