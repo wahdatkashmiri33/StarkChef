@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">StarkChef</string>
+    <string name="title_steps_list">Items</string>
+    <string name="title_steps_detail">steps Detail</string>
 </resources>

@@ -44,7 +44,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecipeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecipeViewHolder holder, final int position) {
          final Recipe recipe= recipies.get(position);
 
          holder.recipename.setText(recipe.getName());
@@ -58,6 +58,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                  intent.putExtra("recipeData",recipies.get(holder.getAdapterPosition()));
                  intent.putParcelableArrayListExtra("ingredientsList", new ArrayList<Parcelable>(recipies.get(holder.getAdapterPosition()).getIngredients()));
                  intent.putParcelableArrayListExtra("stepsList",new ArrayList<Parcelable>(recipies.get(holder.getAdapterPosition()).getSteps()));
+                 intent.putExtra("position",recipies.get(position));
                  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                  context.startActivity(intent);
              }

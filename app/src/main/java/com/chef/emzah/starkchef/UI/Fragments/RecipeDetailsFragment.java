@@ -14,7 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chef.emzah.starkchef.ModalClasses.Recipe;
+import com.chef.emzah.starkchef.ModalClasses.Step;
 import com.chef.emzah.starkchef.R;
+import com.chef.emzah.starkchef.UI.RecipeSteps;
+import com.chef.emzah.starkchef.UI.Steps;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,13 +49,13 @@ public class RecipeDetailsFragment extends Fragment {
                 Toast.makeText(getContext(), "this is detail fragment", Toast.LENGTH_SHORT).show();
             }
         });
-        cardViewSteps.setOnClickListener(new View.OnClickListener() {
+       cardViewSteps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             StepsFragment stepsFragment=new StepsFragment();
-             FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-             fragmentManager.beginTransaction().replace(R.id.container,stepsFragment)
-                     .addToBackStack(null).commit();
+                String position=getActivity().getIntent().getStringExtra("position");
+             Intent intent=new Intent(getContext(),Steps.class);
+             intent.putExtra("positions",position);
+             startActivity(intent);
             }
         });
 

@@ -10,6 +10,7 @@ import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.R;
 import com.chef.emzah.starkchef.UI.Fragments.IngredietFragment;
 import com.chef.emzah.starkchef.UI.Fragments.RecipeDetailsFragment;
+import com.chef.emzah.starkchef.UI.Fragments.StepsFragment;
 
 import java.util.List;
 
@@ -23,7 +24,6 @@ List<Recipe> ingredientList;
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.container,fragment)
                 .commit();
-
 
 
 

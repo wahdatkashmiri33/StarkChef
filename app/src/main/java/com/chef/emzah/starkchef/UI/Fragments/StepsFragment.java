@@ -1,5 +1,6 @@
 package com.chef.emzah.starkchef.UI.Fragments;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -49,7 +50,10 @@ return view;
         super.onStart();
 
         steps=getActivity().getIntent().getParcelableArrayListExtra("stepsList");
-        Step step=new Step();
+        Intent intent=getActivity().getIntent();
+     String positions=   intent.getStringExtra("positions");
+     int position=Integer.parseInt(positions);
+        Step step=steps.get(position);
        Uri mediauri=Uri.parse(step.getVideoURL());
         player=ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(getContext()),
@@ -65,6 +69,7 @@ return view;
 
 
     }
+
 
     @Override
     public void onStop() {
