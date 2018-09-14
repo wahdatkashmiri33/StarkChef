@@ -1,5 +1,6 @@
 package com.chef.emzah.starkchef.UI;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,10 +21,19 @@ List<Recipe> ingredientList;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps);
+
+        Intent intent=getIntent();
+        int positionB=intent.getIntExtra("position",0);
+
+        Bundle bundle=new Bundle();
+        bundle.putInt("position",positionB);
+
         RecipeDetailsFragment fragment=new RecipeDetailsFragment();
+        fragment.setArguments(bundle);
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.container,fragment)
                 .commit();
+
 
 
 

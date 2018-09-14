@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class StepsFragment extends Fragment {
     @BindView(R.id.player_view) PlayerView playerView;
     private SimpleExoPlayer player;
    public List<Step> steps;
+   public int currentPosition;
     public StepsFragment() {
     }
 
@@ -44,16 +46,18 @@ public class StepsFragment extends Fragment {
         ButterKnife.bind(this,view);
 return view;
     }
+    public void setCurrentStep(int currentStepPosition) {
 
+        this.currentPosition = currentStepPosition;
+    }
     @Override
     public void onStart() {
         super.onStart();
 
         steps=getActivity().getIntent().getParcelableArrayListExtra("stepsList");
-        Intent intent=getActivity().getIntent();
-     String positions=   intent.getStringExtra("positions");
-     int position=Integer.parseInt(positions);
-        Step step=steps.get(position);
+
+       Step step=steps.get(currentPosition);
+
        Uri mediauri=Uri.parse(step.getVideoURL());
         player=ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(getContext()),

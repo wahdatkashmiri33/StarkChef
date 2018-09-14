@@ -7,12 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chef.emzah.starkchef.Adapters.RecipeAdapter;
 import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.ModalClasses.Step;
 import com.chef.emzah.starkchef.R;
@@ -25,9 +27,9 @@ import butterknife.ButterKnife;
 public class RecipeDetailsFragment extends Fragment {
 
 
+
     @BindView(R.id.cardingredients) CardView cardViewIngredients;
     @BindView(R.id.recipe_name) TextView recipeName;
-    @BindView(R.id.cardsteps) CardView cardViewSteps;
     public RecipeDetailsFragment() {
     }
 
@@ -36,6 +38,7 @@ public class RecipeDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView=inflater.inflate(R.layout.details_activity_fragment,container,false);
         Recipe recipe=getActivity().getIntent().getParcelableExtra("recipeData");
+
 
         ButterKnife.bind(this,rootView);
         recipeName.setText(recipe.getName());
@@ -49,15 +52,7 @@ public class RecipeDetailsFragment extends Fragment {
                 Toast.makeText(getContext(), "this is detail fragment", Toast.LENGTH_SHORT).show();
             }
         });
-       cardViewSteps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String position=getActivity().getIntent().getStringExtra("position");
-             Intent intent=new Intent(getContext(),Steps.class);
-             intent.putExtra("positions",position);
-             startActivity(intent);
-            }
-        });
+
 
         return rootView;
     }
