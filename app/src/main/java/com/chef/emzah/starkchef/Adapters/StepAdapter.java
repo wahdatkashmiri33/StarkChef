@@ -2,6 +2,7 @@ package com.chef.emzah.starkchef.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,10 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.ModalClasses.Step;
 import com.chef.emzah.starkchef.R;
 import com.chef.emzah.starkchef.UI.Steps;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,6 +28,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     private List<Step> steps;
     private Context context;
 
+    public List<Recipe>recipeList;
     public StepAdapter(List<Step> steps, Context context) {
         this.steps = steps;
         this.context = context;
@@ -47,6 +51,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
             @Override
             public void onClick(View v) {
               Intent intent=new Intent(context,Steps.class);
+              intent.putParcelableArrayListExtra("stepsList",new ArrayList<Parcelable>(recipeList.get(holder.getAdapterPosition()).getSteps()));
                 Log.d("positon test",""+position);
              intent.putExtra("stepslist",position);
               context.startActivity(intent);

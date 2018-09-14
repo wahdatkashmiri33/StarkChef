@@ -36,6 +36,17 @@ public class StepsFragment extends Fragment {
    public int currentPosition;
     public StepsFragment() {
     }
+    public void setCurrentStep(int currentStepPosition) {
+
+        this.currentPosition = currentStepPosition;
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        steps=getActivity().getIntent().getParcelableArrayListExtra("stepsList");
+
+
+    }
 
     @Nullable
     @Override
@@ -46,18 +57,13 @@ public class StepsFragment extends Fragment {
         ButterKnife.bind(this,view);
 return view;
     }
-    public void setCurrentStep(int currentStepPosition) {
 
-        this.currentPosition = currentStepPosition;
-    }
     @Override
     public void onStart() {
         super.onStart();
 
-        steps=getActivity().getIntent().getParcelableArrayListExtra("stepsList");
 
-       Step step=steps.get(currentPosition);
-
+        Step step=steps.get(currentPosition);
        Uri mediauri=Uri.parse(step.getVideoURL());
         player=ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(getContext()),
@@ -71,7 +77,7 @@ return view;
         player.setPlayWhenReady(true);
 
 
-
+//
     }
 
 
