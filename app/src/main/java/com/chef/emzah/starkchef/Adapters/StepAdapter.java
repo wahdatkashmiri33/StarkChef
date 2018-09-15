@@ -51,7 +51,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
             @Override
             public void onClick(View v) {
               Intent intent=new Intent(context,Steps.class);
-              intent.putParcelableArrayListExtra("stepsList",new ArrayList<Parcelable>(recipeList.get(holder.getAdapterPosition()).getSteps()));
+              intent.putParcelableArrayListExtra("stepsList",new ArrayList<Parcelable>(steps));
                 Log.d("positon test",""+position);
              intent.putExtra("stepslist",position);
               context.startActivity(intent);

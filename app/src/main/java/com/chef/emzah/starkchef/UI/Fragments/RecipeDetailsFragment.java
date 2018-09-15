@@ -49,7 +49,7 @@ public class RecipeDetailsFragment extends Fragment {
                 FragmentManager fragmentManager1=getActivity().getSupportFragmentManager();
                 fragmentManager1.beginTransaction().replace(R.id.container,ingredietFragment)
                         .addToBackStack(null) .commit();
-                Toast.makeText(getContext(), "this is detail fragment", Toast.LENGTH_SHORT).show();
+
             }
         });
 

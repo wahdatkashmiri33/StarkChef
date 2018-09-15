@@ -77,7 +77,7 @@ return view;
         player.setPlayWhenReady(true);
 
 
-//
+
     }
 
 
