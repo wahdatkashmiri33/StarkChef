@@ -19,7 +19,6 @@ private int CurrentPosition;
         setContentView(R.layout.activity_steps);
 
         Intent intent=getIntent();
-       // Step data=getIntent().getParcelableExtra("stepslist");
        CurrentPosition= intent.getIntExtra("stepslist",0);
 
         Log.d("position C ki",""+CurrentPosition);

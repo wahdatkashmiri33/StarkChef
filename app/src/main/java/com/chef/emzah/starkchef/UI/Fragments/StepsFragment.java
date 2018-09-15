@@ -1,5 +1,6 @@
 package com.chef.emzah.starkchef.UI.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.chef.emzah.starkchef.ModalClasses.Step;
 import com.chef.emzah.starkchef.R;
@@ -31,9 +33,14 @@ import butterknife.ButterKnife;
 
 public class StepsFragment extends Fragment {
     @BindView(R.id.player_view) PlayerView playerView;
+    @BindView(R.id.txt_step_label) TextView stepLabel;
+    @BindView(R.id.txt_step_description) TextView StepDescription;
     private SimpleExoPlayer player;
    public List<Step> steps;
    public int currentPosition;
+    public long playbackPosition = 0;
+    public int currentWindow = 0;
+    public boolean playWhenReady = true;
     public StepsFragment() {
     }
     public void setCurrentStep(int currentStepPosition) {
@@ -52,20 +59,51 @@ public class StepsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view=inflater.inflate(R.layout.videoplayersteps,container,false);
+    ButterKnife.bind(this,view);
+    stepLabel.setText(steps.get(currentPosition).getShortDescription());
+    StepDescription.setText(steps.get(currentPosition).getDescription());
 
-
-        ButterKnife.bind(this,view);
 return view;
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+      if (Util.SDK_INT<23 || player==null){
+          initilizePlayer();
+      }
+    }
+
+    @SuppressLint("InlinedApi")
+    private void hideSystemUi() {
+        playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    }
+
+    
+    @Override
     public void onStart() {
         super.onStart();
+if (Util.SDK_INT >23){
+    initilizePlayer();
+
+}
 
 
+
+
+
+    }
+
+    private void initilizePlayer() {
         Step step=steps.get(currentPosition);
-       Uri mediauri=Uri.parse(step.getVideoURL());
-        player=ExoPlayerFactory.newSimpleInstance(
+        Uri mediauri=Uri.parse(step.getVideoURL());
+        player= ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(getContext()),
                 new DefaultTrackSelector(),new DefaultLoadControl());
         playerView.setPlayer(player);
@@ -75,17 +113,32 @@ return view;
                 .createMediaSource(mediauri);
         player.prepare(mediaSource);
         player.setPlayWhenReady(true);
-
-
-
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+    private void releasePlayer() {
+        if (player !=null){
+            playbackPosition = player.getCurrentPosition();
+            currentWindow = player.getCurrentWindowIndex();
+            playWhenReady = player.getPlayWhenReady();
+            player.release();
+            player = null;
+        }
+    }
 
     @Override
     public void onStop() {
         super.onStop();
-        playerView.setPlayer(null);
-        player.release();
-        player=null;
+        if (Util.SDK_INT>23){
+            releasePlayer();
+        }
+
     }
 }
