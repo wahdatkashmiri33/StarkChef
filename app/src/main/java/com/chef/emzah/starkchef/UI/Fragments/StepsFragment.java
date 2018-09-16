@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class StepsFragment extends Fragment {
+    @BindView(R.id.fab_next) FloatingActionButton  fabNext;
+    @BindView(R.id.fab_prev) FloatingActionButton fabPrev;
     @BindView(R.id.player_view) PlayerView playerView;
     @BindView(R.id.txt_step_label) TextView stepLabel;
     @BindView(R.id.txt_step_description) TextView StepDescription;
@@ -60,10 +63,42 @@ public class StepsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view=inflater.inflate(R.layout.videoplayersteps,container,false);
     ButterKnife.bind(this,view);
-    stepLabel.setText(steps.get(currentPosition).getShortDescription());
-    StepDescription.setText(steps.get(currentPosition).getDescription());
+        initViews();
+    setUpNxtPrevListeners();
 
 return view;
+    }
+
+    private void initViews() {
+        stepLabel.setText(steps.get(currentPosition).getShortDescription());
+        StepDescription.setText(steps.get(currentPosition).getDescription());
+    }
+
+    private void setUpNxtPrevListeners() {
+        fabNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentPosition < steps.size()-1){
+                    setCurrentStep(currentPosition +1);
+                    releasePlayer();
+                    initViews();
+                    initilizePlayer();
+
+                }
+            }
+        });
+        fabPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentPosition>0){
+                    setCurrentStep(currentPosition -1);
+                    releasePlayer();
+                    initViews();
+                    initilizePlayer();
+
+                }
+            }
+        });
     }
 
     @Override
