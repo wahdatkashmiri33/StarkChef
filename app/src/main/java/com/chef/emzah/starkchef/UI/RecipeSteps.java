@@ -19,6 +19,7 @@ import java.util.List;
 public class RecipeSteps extends AppCompatActivity {
 List<Recipe> ingredientList;
     List<Step> stepList;
+    private int CurrentPosition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

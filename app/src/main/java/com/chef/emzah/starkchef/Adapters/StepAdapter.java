@@ -59,7 +59,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
             }
         });
     }
-
+//
     @Override
     public int getItemCount() {
         if (steps==null){
