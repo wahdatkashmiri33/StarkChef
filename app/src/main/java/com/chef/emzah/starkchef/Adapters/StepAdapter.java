@@ -1,12 +1,9 @@
 package com.chef.emzah.starkchef.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +12,7 @@ import android.widget.TextView;
 import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.ModalClasses.Step;
 import com.chef.emzah.starkchef.R;
-import com.chef.emzah.starkchef.UI.Steps;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,13 +22,18 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
 
     private List<Step> steps;
     private Context context;
+    private OnitemclickListener onitemclickListener;
 
     public List<Recipe>recipeList;
-    public StepAdapter(List<Step> steps, Context context) {
+    public StepAdapter(List<Step> steps,OnitemclickListener onitemclickListener, Context context) {
         this.steps = steps;
         this.context = context;
+        this.onitemclickListener=onitemclickListener;
     }
 
+    public interface OnitemclickListener{
+        void itemClick(int position);
+    }
     @NonNull
     @Override
     public StepViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,12 +50,23 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         holder.cardViewSteps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              Intent intent=new Intent(context,Steps.class);
-              intent.putParcelableArrayListExtra("stepsList",new ArrayList<Parcelable>(steps));
-                Log.d("positon test",""+position);
-             intent.putExtra("stepslist",position);
-              context.startActivity(intent);
+               onitemclickListener.itemClick(position);
 
+
+
+
+
+               // StepsFragment stepsFragment=new StepsFragment();
+               // Bundle bundle=new Bundle();
+               // bundle.putInt("positionsteps",position);
+              //  stepsFragment.setArguments(bundle);
+
+             // Intent intent=new Intent(context,Steps.class);
+             // intent.putParcelableArrayListExtra("stepsList",new ArrayList<Parcelable>(steps));
+             //   Log.d("positon test",""+position);
+            // intent.putExtra("stepslist",position);
+            //  context.startActivity(intent);
+              //  Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
             }
         });
     }

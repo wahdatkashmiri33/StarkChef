@@ -39,6 +39,7 @@ public class StepsFragment extends Fragment {
     @BindView(R.id.txt_step_label) TextView stepLabel;
     @BindView(R.id.txt_step_description) TextView StepDescription;
     private SimpleExoPlayer player;
+
    public List<Step> steps;
    public int currentPosition;
     public long playbackPosition = 0;
@@ -50,10 +51,13 @@ public class StepsFragment extends Fragment {
 
         this.currentPosition = currentStepPosition;
     }
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        steps=getActivity().getIntent().getParcelableArrayListExtra("stepsList");
+    //    steps=getActivity().getIntent().getParcelableArrayListExtra("steparraylist");
+
 
 
     }
@@ -63,7 +67,12 @@ public class StepsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view=inflater.inflate(R.layout.videoplayersteps,container,false);
     ButterKnife.bind(this,view);
-        initViews();
+      steps=getArguments().getParcelableArrayList("steplist");
+        currentPosition=getArguments().getInt("positionsteps");
+        Log.d("testing steps",""+steps);
+        Log.d("testing pos",""+currentPosition);
+
+       initViews();
     setUpNxtPrevListeners();
 
 return view;
@@ -81,7 +90,7 @@ return view;
                 if (currentPosition < steps.size()-1){
                     setCurrentStep(currentPosition +1);
                     releasePlayer();
-                    initViews();
+                  initViews();
                     initilizePlayer();
 
                 }
@@ -93,7 +102,7 @@ return view;
                 if (currentPosition>0){
                     setCurrentStep(currentPosition -1);
                     releasePlayer();
-                    initViews();
+                   initViews();
                     initilizePlayer();
 
                 }
