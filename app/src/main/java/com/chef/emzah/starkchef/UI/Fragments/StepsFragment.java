@@ -138,10 +138,6 @@ if (Util.SDK_INT >23){
 
 }
 
-
-
-
-
     }
 
     private void initilizePlayer() {
