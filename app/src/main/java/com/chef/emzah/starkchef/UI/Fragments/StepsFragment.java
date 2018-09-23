@@ -56,32 +56,24 @@ public class StepsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    //    steps=getActivity().getIntent().getParcelableArrayListExtra("steparraylist");
-
-
-
-    }
+        }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view=inflater.inflate(R.layout.videoplayersteps,container,false);
     ButterKnife.bind(this,view);
-      steps=getArguments().getParcelableArrayList("steplist");
-        currentPosition=getArguments().getInt("positionsteps");
-        Log.d("testing steps",""+steps);
-        Log.d("testing pos",""+currentPosition);
-
-       initViews();
+      steps=getArguments().getParcelableArrayList("videosteps");
+      initViews();
     setUpNxtPrevListeners();
 
 return view;
     }
 
-    private void initViews() {
+   private void initViews() {
         stepLabel.setText(steps.get(currentPosition).getShortDescription());
         StepDescription.setText(steps.get(currentPosition).getDescription());
-    }
+   }
 
     private void setUpNxtPrevListeners() {
         fabNext.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +82,7 @@ return view;
                 if (currentPosition < steps.size()-1){
                     setCurrentStep(currentPosition +1);
                     releasePlayer();
-                  initViews();
+                initViews();
                     initilizePlayer();
 
                 }
@@ -102,7 +94,7 @@ return view;
                 if (currentPosition>0){
                     setCurrentStep(currentPosition -1);
                     releasePlayer();
-                   initViews();
+                  initViews();
                     initilizePlayer();
 
                 }

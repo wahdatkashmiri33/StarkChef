@@ -1,9 +1,12 @@
 package com.chef.emzah.starkchef.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +15,9 @@ import android.widget.TextView;
 import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.ModalClasses.Step;
 import com.chef.emzah.starkchef.R;
+import com.chef.emzah.starkchef.UI.VideoSteps;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,7 +55,13 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         holder.cardViewSteps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               onitemclickListener.itemClick(position);
+             //  onitemclickListener.itemClick(position);
+
+                Intent intent=new Intent(context,VideoSteps.class);
+                intent.putParcelableArrayListExtra("videosteps",new ArrayList<Parcelable>(steps));
+                intent.putExtra("videoposition",holder.getAdapterPosition());
+                Log.d("videsteps",""+steps);
+                context.startActivity(intent);
 
 
 
