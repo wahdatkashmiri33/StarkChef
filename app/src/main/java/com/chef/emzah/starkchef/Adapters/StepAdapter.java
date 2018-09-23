@@ -55,29 +55,12 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         holder.cardViewSteps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //  onitemclickListener.itemClick(position);
-
                 Intent intent=new Intent(context,VideoSteps.class);
                 intent.putParcelableArrayListExtra("videosteps",new ArrayList<Parcelable>(steps));
                 intent.putExtra("videoposition",holder.getAdapterPosition());
                 Log.d("videsteps",""+steps);
                 context.startActivity(intent);
 
-
-
-
-
-               // StepsFragment stepsFragment=new StepsFragment();
-               // Bundle bundle=new Bundle();
-               // bundle.putInt("positionsteps",position);
-              //  stepsFragment.setArguments(bundle);
-
-             // Intent intent=new Intent(context,Steps.class);
-             // intent.putParcelableArrayListExtra("stepsList",new ArrayList<Parcelable>(steps));
-             //   Log.d("positon test",""+position);
-            // intent.putExtra("stepslist",position);
-            //  context.startActivity(intent);
-              //  Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
             }
         });
     }
