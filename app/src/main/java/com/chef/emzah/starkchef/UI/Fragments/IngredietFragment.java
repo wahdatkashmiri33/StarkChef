@@ -90,6 +90,7 @@ StepAdapter stepAdapter;
         stepslist.putParcelableArrayList("steplist",new ArrayList<Parcelable>(stepList));
         stepsFragment.setArguments(stepslist);
         stepsFragment.setCurrentStep(position);
+
         FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container,stepsFragment)
                 .addToBackStack(null).commit();
