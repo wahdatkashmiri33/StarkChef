@@ -21,11 +21,21 @@ import java.util.List;
 public class RecipeSteps extends AppCompatActivity implements IngredietFragment.ItemClickListener{
 List<Recipe> ingredientList;
     List<Step> stepList;
+    private boolean mtwopane;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps);
 
+        if (findViewById(R.id.tablayoutlinear) !=null){
+            mtwopane = true;
+            if (savedInstanceState ==null){
+
+            }
+        }
+        else {
+            mtwopane=false;
+        }
         stepList=getIntent().getParcelableArrayListExtra("stepsList");
 
         Intent intent=getIntent();
