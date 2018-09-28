@@ -77,7 +77,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
     public long getItemId(int position) {
         return position;
     }
-
+//
     @Override
     public boolean hasStableIds() {
         return false;
