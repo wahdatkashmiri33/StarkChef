@@ -19,7 +19,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".UI.RecipeSteps" />
-        <activity android:name=".UI.VideoSteps"></activity>
+        <activity android:name=".UI.VideoSteps" />
+
+        <receiver android:name=".Widgets.RecipeWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipe_widget_provider_info" />
+        </receiver>
     </application>
 
 </manifest>

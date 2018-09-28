@@ -15,18 +15,24 @@ import java.util.List;
 
 public class VideoSteps extends AppCompatActivity {
 
-   public List<Step> steps;
-   public int position;
+    public List<Step> steps;
+    public int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_steps);
 
+        if(getIntent().hasExtra("videoposition") && getIntent().hasExtra("videosteps"))
 
-        position=getIntent().getIntExtra("videoposition",0);
+            position=getIntent().getIntExtra("videoposition",0);
         steps=getIntent().getParcelableArrayListExtra("videosteps");
 
+        setUpFragment();
 
+
+    }
+
+    private void setUpFragment() {
 
         StepsFragment stepsFragment= new StepsFragment();
         Bundle bundle=new Bundle();
@@ -38,5 +44,6 @@ public class VideoSteps extends AppCompatActivity {
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.videostepsContainer,stepsFragment)
                 .commit();
+
     }
 }

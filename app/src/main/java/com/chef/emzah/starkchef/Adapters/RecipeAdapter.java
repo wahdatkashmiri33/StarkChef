@@ -1,7 +1,10 @@
 package com.chef.emzah.starkchef.Adapters;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -16,6 +19,8 @@ import com.chef.emzah.starkchef.ModalClasses.Ingredient;
 import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.R;
 import com.chef.emzah.starkchef.UI.RecipeSteps;
+import com.chef.emzah.starkchef.Widgets.RecipeWidgetProvider;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,6 +34,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     private List<Recipe> recipies;
     private Context context;
+    public  final String BAKING_APP_PREFERENCE = "current_recipe_preference";
+    public  final String LAST_RECIPE_KEY = "current_recipe";
 
     public RecipeAdapter(List<Recipe> recipies, Context context) {
         this.recipies = recipies;
@@ -62,6 +69,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
                  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                  context.startActivity(intent);
+                 SharedPreferences sharedPreferences=context.getSharedPreferences(BAKING_APP_PREFERENCE,Context.MODE_PRIVATE);
+                 SharedPreferences.Editor editor=sharedPreferences.edit();
+                 Gson gson=new Gson();
+                 String json=gson.toJson(recipies.get(position));
+                // String json=recipies.get(position).toString();
+                 editor.putString(LAST_RECIPE_KEY,json);
+                 editor.commit();
+                 AppWidgetManager appWidgetManager=AppWidgetManager.getInstance(context);
+                 int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, RecipeWidgetProvider.class));
+                 appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_listview);
+                 RecipeWidgetProvider.updateIngredientWidgets(context,appWidgetManager,appWidgetIds);
+
+
+
              }
          });
 

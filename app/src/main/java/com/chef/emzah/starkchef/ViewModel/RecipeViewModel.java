@@ -48,7 +48,7 @@ public class RecipeViewModel extends ViewModel {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                      recipeList.setValue(response.body());
-                Log.d("network success","calling network");
+
             }
 
             @Override
