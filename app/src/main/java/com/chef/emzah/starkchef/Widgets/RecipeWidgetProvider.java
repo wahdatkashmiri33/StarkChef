@@ -35,7 +35,7 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
+        /// There may be multiple widgets active, so update all of them
        updateIngredientWidgets(context,appWidgetManager,appWidgetIds);
     }
 
