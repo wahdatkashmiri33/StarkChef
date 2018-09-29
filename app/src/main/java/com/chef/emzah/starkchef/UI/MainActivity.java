@@ -40,7 +40,10 @@ public class MainActivity extends AppCompatActivity {
         settingLayoutmanager();
         setupViewmodel();
 
+
     }
+
+
 
     private void setupViewmodel() {
         RecipeViewModel viewModel= ViewModelProviders.of(this).get(RecipeViewModel.class);
@@ -50,11 +53,13 @@ public class MainActivity extends AppCompatActivity {
                 adapter=new RecipeAdapter(recipes,getApplicationContext());
                 recyclerView.setAdapter(adapter);
                 recyclerView.getAdapter().notifyDataSetChanged();
+
             }
         });
     }
 
     private void settingLayoutmanager() {
+
         layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
