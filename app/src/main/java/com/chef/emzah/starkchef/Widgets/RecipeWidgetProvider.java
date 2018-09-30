@@ -1,6 +1,5 @@
 package com.chef.emzah.starkchef.Widgets;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.widget.RemoteViews;
 import com.chef.emzah.starkchef.Common.Common;
 import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.R;
-import com.chef.emzah.starkchef.UI.MainActivity;
 
 /**
  * Implementation of App Widget functionality.

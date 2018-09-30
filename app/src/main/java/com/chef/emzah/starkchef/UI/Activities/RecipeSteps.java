@@ -1,13 +1,11 @@
-package com.chef.emzah.starkchef.UI;
+package com.chef.emzah.starkchef.UI.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 
-import com.chef.emzah.starkchef.ModalClasses.Ingredient;
 import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.ModalClasses.Step;
 import com.chef.emzah.starkchef.R;
@@ -106,6 +104,7 @@ public class RecipeSteps extends AppCompatActivity implements IngredietFragment.
 
     @Override
     public void OnClickednstep(int position) {
+
         StepsFragment stepsFragment=new StepsFragment();
         stepsFragment.setCurrentStep(position);
 

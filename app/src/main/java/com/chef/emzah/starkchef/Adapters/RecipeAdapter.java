@@ -12,16 +12,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chef.emzah.starkchef.ModalClasses.Ingredient;
 import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.R;
-import com.chef.emzah.starkchef.UI.RecipeSteps;
+import com.chef.emzah.starkchef.UI.Activities.RecipeSteps;
 import com.chef.emzah.starkchef.Widgets.RecipeWidgetProvider;
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;

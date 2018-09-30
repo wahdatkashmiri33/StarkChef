@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.chef.emzah.starkchef.ModalClasses.Recipe;
 import com.chef.emzah.starkchef.ModalClasses.Step;
 import com.chef.emzah.starkchef.R;
-import com.chef.emzah.starkchef.UI.VideoSteps;
+import com.chef.emzah.starkchef.UI.Activities.VideoSteps;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +55,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         holder.cardViewSteps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent=new Intent(context,VideoSteps.class);
                 intent.putParcelableArrayListExtra("videosteps",new ArrayList<Parcelable>(steps));
                 intent.putExtra("videoposition",holder.getAdapterPosition());

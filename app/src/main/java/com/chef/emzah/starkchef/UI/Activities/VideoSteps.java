@@ -1,10 +1,9 @@
-package com.chef.emzah.starkchef.UI;
+package com.chef.emzah.starkchef.UI.Activities;
 
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.TextView;
 
 import com.chef.emzah.starkchef.ModalClasses.Step;
 import com.chef.emzah.starkchef.R;
