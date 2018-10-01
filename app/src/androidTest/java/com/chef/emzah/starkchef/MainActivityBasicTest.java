@@ -20,8 +20,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.anything;
+
 
 //anno runwith let android studio know that we want to run this test with androidjunit4
 //androidjunit4 is a class which will help us control launching the app,as well as runnin g test on it
@@ -32,15 +31,11 @@ public class MainActivityBasicTest {
             new ActivityTestRule<>(MainActivity.class);
     //rule activitytestrule provides functional testing fr a specific activity
 
-   /* @Test
-    @Nullable
-    public void textview(){
-        onView(withParent(withId(R.id.relative_layout))).check(matches(isDisplayed()));
-    }*/
+
     @Test
     public void clickRecyclerViewItemOpens_RecipeActivity(){
-       onView(ViewMatchers.withId(R.id.recyclerviewrecipe))
-               .perform(RecyclerViewActions.<RecipeAdapter.RecipeViewHolder>actionOnItemAtPosition(2,click()));
+       onView(withId(R.id.recyclerviewrecipe))
+               .perform(RecyclerViewActions.actionOnItemAtPosition(2,click()));
     }
-
+ 
 }
