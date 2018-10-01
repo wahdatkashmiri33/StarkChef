@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chef.emzah.starkchef.ModalClasses.Step;
@@ -27,6 +28,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -34,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class StepsFragment extends Fragment {
+    @BindView(R.id.thumbnailurl)ImageView thumnail;
     @BindView(R.id.fab_next) FloatingActionButton  fabNext;
     @BindView(R.id.fab_prev) FloatingActionButton fabPrev;
     @BindView(R.id.player_view) PlayerView playerView;
@@ -48,10 +51,7 @@ public class StepsFragment extends Fragment {
     public boolean playWhenReady = true;
 
 
-    private static final String SAVED_INSTANCE_POSITION = "position";
-    private static final String SAVED_PLAYBACK_POSITION = "playback_position";
-    private static final String SAVED_PLAYBACK_WINDOW = "current_window";
-    private static final String SAVED_PLAY_WHEN_READY = "play_when_ready";
+
     public StepsFragment() {
     }
     public void setCurrentStep(int currentStepPosition) {
@@ -99,9 +99,24 @@ return view;
             public void onClick(View v) {
                 if (currentPosition < steps.size()-1){
                     setCurrentStep(currentPosition +1);
-                    releasePlayer();
-                initViews();
-                    initilizePlayer();
+                    initViews();
+
+
+
+                    if (steps.get(currentPosition).getVideoURL() !=null){
+                        releasePlayer();
+                        initilizePlayer();
+                    }
+                    else {
+                        playerView.setVisibility(View.GONE);
+                        thumnail.setVisibility(View.VISIBLE);
+                        if (steps.get(currentPosition).getThumbnailURL()==null){
+                            Picasso.get().load(R.drawable.ic_launcher_background).into(thumnail);
+                        } else {
+                            Picasso.get().load(steps.get(currentPosition).getThumbnailURL()).into(thumnail);
+                        }
+                    }
+
 
                 }
             }
@@ -111,9 +126,24 @@ return view;
             public void onClick(View v) {
                 if (currentPosition>0){
                     setCurrentStep(currentPosition -1);
-                    releasePlayer();
-                  initViews();
-                    initilizePlayer();
+                    initViews();
+
+
+                    if (steps.get(currentPosition).getVideoURL() !=null){
+                        releasePlayer();
+                        initilizePlayer();
+                        thumnail.setVisibility(View.GONE);
+                    }
+                    else {
+                        playerView.setVisibility(View.GONE);
+                        thumnail.setVisibility(View.VISIBLE);
+                        if (steps.get(currentPosition).getThumbnailURL()==null){
+                            Picasso.get().load(R.drawable.ic_launcher_background).into(thumnail);
+                        } else {
+                            Picasso.get().load(steps.get(currentPosition).getThumbnailURL()).into(thumnail);
+                        }
+                        ;
+                    }
 
                 }
             }
@@ -125,7 +155,22 @@ return view;
         super.onResume();
 
       if (Util.SDK_INT<23 || player==null){
-          initilizePlayer();
+
+          if (steps.get(currentPosition).getVideoURL()!=null){
+              initilizePlayer();
+              thumnail.setVisibility(View.GONE);
+          }
+          else {
+              playerView.setVisibility(View.GONE);
+              thumnail.setVisibility(View.VISIBLE);
+              if (steps.get(currentPosition).getThumbnailURL()==null){
+                  Picasso.get().load(R.drawable.ic_launcher_background).into(thumnail);
+              }
+              else {
+                  Picasso.get().load(steps.get(currentPosition).getThumbnailURL()).into(thumnail);
+              }
+          }
+
       }
     }
 
@@ -144,7 +189,24 @@ return view;
     public void onStart() {
         super.onStart();
 if (Util.SDK_INT >23){
-    initilizePlayer();
+
+    if (steps.get(currentPosition).getVideoURL() !=null){
+        initilizePlayer();
+
+    }
+    else {
+        playerView.setVisibility(View.GONE);
+        thumnail.setVisibility(View.VISIBLE);
+        if (steps.get(currentPosition).getThumbnailURL()==null){
+            Picasso.get().load(R.drawable.ic_launcher_background).into(thumnail);
+        }
+       else {
+            Picasso.get().load(steps.get(currentPosition).getThumbnailURL()).into(thumnail);
+        }
+    }
+
+
+
 
 }
 
@@ -169,6 +231,7 @@ if (Util.SDK_INT >23){
     public void onPause() {
         super.onPause();
         if (Util.SDK_INT <= 23) {
+
             releasePlayer();
         }
     }

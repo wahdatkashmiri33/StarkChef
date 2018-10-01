@@ -1,4 +1,3 @@
-
 package com.chef.emzah.starkchef.ModalClasses;
 
 import android.os.Parcel;

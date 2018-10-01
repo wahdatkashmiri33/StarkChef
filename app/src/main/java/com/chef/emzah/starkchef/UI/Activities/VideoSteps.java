@@ -1,5 +1,4 @@
 package com.chef.emzah.starkchef.UI.Activities;
-
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.chef.emzah.starkchef.ModalClasses.Step;
 import com.chef.emzah.starkchef.R;
 import com.chef.emzah.starkchef.UI.Fragments.StepsFragment;
+
 
 import java.util.ArrayList;
 import java.util.List;
