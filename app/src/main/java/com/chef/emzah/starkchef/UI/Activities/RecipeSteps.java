@@ -28,6 +28,7 @@ public class RecipeSteps extends AppCompatActivity implements IngredietFragment.
         setContentView(R.layout.activity_recipe_steps);
 
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setUpActivity();
 
 

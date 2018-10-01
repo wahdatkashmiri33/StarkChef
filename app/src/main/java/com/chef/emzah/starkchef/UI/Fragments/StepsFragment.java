@@ -2,6 +2,7 @@ package com.chef.emzah.starkchef.UI.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -45,6 +46,12 @@ public class StepsFragment extends Fragment {
     public long playbackPosition = 0;
     public int currentWindow = 0;
     public boolean playWhenReady = true;
+
+
+    private static final String SAVED_INSTANCE_POSITION = "position";
+    private static final String SAVED_PLAYBACK_POSITION = "playback_position";
+    private static final String SAVED_PLAYBACK_WINDOW = "current_window";
+    private static final String SAVED_PLAY_WHEN_READY = "play_when_ready";
     public StepsFragment() {
     }
     public void setCurrentStep(int currentStepPosition) {
@@ -61,20 +68,31 @@ public class StepsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+
+
     View view=inflater.inflate(R.layout.videoplayersteps,container,false);
     ButterKnife.bind(this,view);
       steps=getArguments().getParcelableArrayList("videosteps");
       initViews();
-    setUpNxtPrevListeners();
+        setUpNxtPrevListeners();
+
+
 
 return view;
     }
 
    private void initViews() {
-        stepLabel.setText(steps.get(currentPosition).getShortDescription());
-        StepDescription.setText(steps.get(currentPosition).getDescription());
-   }
 
+
+
+           stepLabel.setText(steps.get(currentPosition).getShortDescription());
+           StepDescription.setText(steps.get(currentPosition).getDescription());
+
+
+
+   }
     private void setUpNxtPrevListeners() {
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,4 +191,5 @@ if (Util.SDK_INT >23){
         }
 
     }
+
 }

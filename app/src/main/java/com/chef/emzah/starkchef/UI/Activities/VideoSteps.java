@@ -20,6 +20,7 @@ public class VideoSteps extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_steps);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if(getIntent().hasExtra("videoposition") && getIntent().hasExtra("videosteps"))
 

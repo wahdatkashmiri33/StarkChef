@@ -12,9 +12,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.annotation.Nullable;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anything;
 
@@ -27,9 +32,15 @@ public class MainActivityBasicTest {
             new ActivityTestRule<>(MainActivity.class);
     //rule activitytestrule provides functional testing fr a specific activity
 
+   /* @Test
+    @Nullable
+    public void textview(){
+        onView(withParent(withId(R.id.relative_layout))).check(matches(isDisplayed()));
+    }*/
     @Test
     public void clickRecyclerViewItemOpens_RecipeActivity(){
        onView(ViewMatchers.withId(R.id.recyclerviewrecipe))
                .perform(RecyclerViewActions.<RecipeAdapter.RecipeViewHolder>actionOnItemAtPosition(2,click()));
     }
+
 }
