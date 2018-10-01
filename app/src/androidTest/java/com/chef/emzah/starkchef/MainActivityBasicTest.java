@@ -12,14 +12,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.annotation.Nullable;
+
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
+
 
 
 //anno runwith let android studio know that we want to run this test with androidjunit4
@@ -36,6 +35,8 @@ public class MainActivityBasicTest {
     public void clickRecyclerViewItemOpens_RecipeActivity(){
        onView(withId(R.id.recyclerviewrecipe))
                .perform(RecyclerViewActions.actionOnItemAtPosition(2,click()));
+
+
     }
- 
+
 }

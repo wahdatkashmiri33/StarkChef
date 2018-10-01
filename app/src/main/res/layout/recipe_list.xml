@@ -33,6 +33,7 @@
             android:layout_height="60dp">
         <TextView
             android:text="No Of Servings"
+
             android:layout_below="@id/recipe_name"
             android:layout_margin="25dp"
             android:textSize="20sp"
