@@ -101,7 +101,7 @@ return view;
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
     }
-
+//
 
    private void initViews() {
 
