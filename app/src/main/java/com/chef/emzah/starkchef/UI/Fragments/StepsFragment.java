@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chef.emzah.starkchef.ModalClasses.Step;
@@ -52,6 +53,10 @@ public class StepsFragment extends Fragment {
 
 
 
+    private static final String SAVED_INSTANCE_POSITION = "position";
+    private static final String SAVED_PLAYBACK_POSITION = "playback_position";
+    private static final String SAVED_PLAYBACK_WINDOW = "current_window";
+    private static final String SAVED_PLAY_WHEN_READY = "play_when_ready";
     public StepsFragment() {
     }
     public void setCurrentStep(int currentStepPosition) {
@@ -60,10 +65,6 @@ public class StepsFragment extends Fragment {
     }
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        }
 
     @Nullable
     @Override
@@ -75,20 +76,46 @@ public class StepsFragment extends Fragment {
     View view=inflater.inflate(R.layout.videoplayersteps,container,false);
     ButterKnife.bind(this,view);
       steps=getArguments().getParcelableArrayList("videosteps");
-      initViews();
-        setUpNxtPrevListeners();
+      //initViews();
+        //setUpNxtPrevListeners();
 
 
 
 return view;
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null){
+            currentPosition = savedInstanceState.getInt(SAVED_INSTANCE_POSITION, 0);
+            playbackPosition = savedInstanceState.getLong(SAVED_PLAYBACK_POSITION, 0);
+            currentWindow = savedInstanceState.getInt(SAVED_PLAYBACK_WINDOW, 0);
+            playWhenReady = savedInstanceState.getBoolean(SAVED_PLAY_WHEN_READY, false);
+
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+
    private void initViews() {
 
 
-
+       int currentOrientation = getResources().getConfiguration().orientation;
+       if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE){
+           hideSystemUi();
+       }
+       else {
            stepLabel.setText(steps.get(currentPosition).getShortDescription());
            StepDescription.setText(steps.get(currentPosition).getDescription());
+       }
+       setUpNxtPrevListeners();
+
 
 
 
@@ -99,17 +126,19 @@ return view;
             public void onClick(View v) {
                 if (currentPosition < steps.size()-1){
                     setCurrentStep(currentPosition +1);
-                    initViews();
+
 
 
 
                     if (steps.get(currentPosition).getVideoURL() !=null){
                         releasePlayer();
+                        initViews();
                         initilizePlayer();
                     }
                     else {
                         playerView.setVisibility(View.GONE);
                         thumnail.setVisibility(View.VISIBLE);
+                        initViews();
                         if (steps.get(currentPosition).getThumbnailURL()==null){
                             Picasso.get().load(R.drawable.ic_launcher_background).into(thumnail);
                         } else {
@@ -126,17 +155,19 @@ return view;
             public void onClick(View v) {
                 if (currentPosition>0){
                     setCurrentStep(currentPosition -1);
-                    initViews();
+
 
 
                     if (steps.get(currentPosition).getVideoURL() !=null){
                         releasePlayer();
+                        initViews();
                         initilizePlayer();
                         thumnail.setVisibility(View.GONE);
                     }
                     else {
                         playerView.setVisibility(View.GONE);
                         thumnail.setVisibility(View.VISIBLE);
+                        initViews();
                         if (steps.get(currentPosition).getThumbnailURL()==null){
                             Picasso.get().load(R.drawable.ic_launcher_background).into(thumnail);
                         } else {
@@ -158,11 +189,13 @@ return view;
 
           if (steps.get(currentPosition).getVideoURL()!=null){
               initilizePlayer();
+              initViews();
               thumnail.setVisibility(View.GONE);
           }
           else {
               playerView.setVisibility(View.GONE);
               thumnail.setVisibility(View.VISIBLE);
+              initViews();
               if (steps.get(currentPosition).getThumbnailURL()==null){
                   Picasso.get().load(R.drawable.ic_launcher_background).into(thumnail);
               }
@@ -182,6 +215,11 @@ return view;
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) playerView.getLayoutParams();
+        params.width = params.MATCH_PARENT;
+        params.height = params.MATCH_PARENT;
+        playerView.setLayoutParams(params);
     }
 
     
@@ -254,5 +292,13 @@ if (Util.SDK_INT >23){
         }
 
     }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(SAVED_INSTANCE_POSITION, currentPosition);
+        outState.putLong(SAVED_PLAYBACK_POSITION, playbackPosition);
+        outState.putInt(SAVED_PLAYBACK_WINDOW, currentWindow);
+        outState.putBoolean(SAVED_PLAY_WHEN_READY, playWhenReady);
 
+    }
 }

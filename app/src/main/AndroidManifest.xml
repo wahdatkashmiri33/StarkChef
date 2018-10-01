@@ -27,7 +27,7 @@
                 android:value=".UI.Activities.MainActivity" />
         </activity>
         <activity android:name=".UI.Activities.VideoSteps"
-            android:configChanges="orientation|screenSize|layoutDirection"
+            android:configChanges="orientation|screenSize"
             android:parentActivityName=".UI.Activities.RecipeSteps"
 
             >
