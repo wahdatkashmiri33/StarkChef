@@ -77,7 +77,7 @@ public class StepsFragment extends Fragment {
             playWhenReady = savedInstanceState.getBoolean(SAVED_PLAY_WHEN_READY, false);
 
         }
-
+//
 
     View view=inflater.inflate(R.layout.videoplayersteps,container,false);
     ButterKnife.bind(this,view);
