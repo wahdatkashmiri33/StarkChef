@@ -70,7 +70,13 @@ public class StepsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        if (savedInstanceState != null){
+            currentPosition = savedInstanceState.getInt(SAVED_INSTANCE_POSITION, 0);
+            playbackPosition = savedInstanceState.getLong(SAVED_PLAYBACK_POSITION, 0);
+            currentWindow = savedInstanceState.getInt(SAVED_PLAYBACK_WINDOW, 0);
+            playWhenReady = savedInstanceState.getBoolean(SAVED_PLAY_WHEN_READY, false);
 
+        }
 
 
     View view=inflater.inflate(R.layout.videoplayersteps,container,false);
@@ -87,13 +93,7 @@ return view;
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null){
-            currentPosition = savedInstanceState.getInt(SAVED_INSTANCE_POSITION, 0);
-            playbackPosition = savedInstanceState.getLong(SAVED_PLAYBACK_POSITION, 0);
-            currentWindow = savedInstanceState.getInt(SAVED_PLAYBACK_WINDOW, 0);
-            playWhenReady = savedInstanceState.getBoolean(SAVED_PLAY_WHEN_READY, false);
 
-        }
     }
 
     @Override
